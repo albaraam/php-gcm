@@ -36,15 +36,18 @@ use albaraam\gcm\GCMMessage;
 use albaraam\gcm\GCMClient;
 
 $notification = new GCMNotification("Tilte","Body");
-$notification->setIcon("noti");
-$notification->setSound("water.mp3");
+$notification
+	->setIcon("noti");
+	->setSound("water.mp3");
 .....
 
-$message = new GCMMessage($notification, ['foo'=>'bar', 'baz'=>[1,2,3]], "collapse-key-1");
-$message->timeToLive(3600); // TTL 1 hour
+$message = new GCMMessage($notification, "ids"); // "ids" field can contain a array/single registration token or a topic key
+$message
+	->setData(['foo'=>'bar', 'baz'=>[1,2,3])
+	->setCollapseKey("collapse-key-1");
 .....
 
-$gcm = new GCMClient("ids", "YOUR_API_KEY"); // "ids" field can contain a array/single registration token or a topic key
+$gcm = new GCMClient("YOUR_API_KEY"); 
 $response = $gcm->send($message);
 
 var_dump($response);

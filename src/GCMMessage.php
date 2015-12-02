@@ -10,6 +10,12 @@ namespace albaraam\gcm;
 class GCMMessage
 {
 
+    /**
+     * Recipients - List of GCM registration IDs (from 1 to 1000 recipients allowed)
+     * @var array
+     */
+    private $to = array();
+
 	/**
 	 * An arbitrary string (such as "Updates Available") that is used to collapse a group of like messages
 	 * when the device is offline, so that only the last message gets sent to the client.
@@ -92,11 +98,20 @@ class GCMMessage
 	private $_errors = [];
 
 
-	public function __construct($notification = null, $data = null, $collapseKey = null)
+	public function __construct($notification = null, $toRegId)
 	{
-
-		$this->setData($data);
-		$this->setCollapseKey($collapseKey);
+        if(is_array($toRegId)) {
+            foreach ($toRegId as $to)
+            {
+                $this->addTo($to);
+            }
+        } elseif($toRegId) {
+            $this->setTo($toRegId);
+        }
+        if($notification != null){
+            $this->setNotification($notification);
+        }
+		
 	}
 
 
@@ -139,6 +154,32 @@ class GCMMessage
 		$this->notification = $notification;
 		return $this;
 	}
+
+    public function getTo($onlyOne = false)
+    {
+        if($onlyOne)
+            return current($this->to); // firstone
+        return $this->to;
+    }
+
+
+    public function setTo($to)
+    {
+        $this->to = [];
+        $this->addTo($to);
+
+        return $this;
+    }
+
+
+    public function addTo($to)
+    {
+        if(!is_string($to))
+            throw new WrongGcmIdException("Recipient must be string GCM Registration ID");
+
+        $this->to[] = $to;
+        return $this;
+    }
 
 
 	public function getDelayWhileIdle()
@@ -371,6 +412,7 @@ class GCMNotification
     public function setTitle($title)
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -387,6 +429,7 @@ class GCMNotification
     public function setBody($body)
     {
         $this->body = $body;
+        return $this;
     }
 
     /**
@@ -403,6 +446,7 @@ class GCMNotification
     public function setIcon($icon)
     {
         $this->icon = $icon;
+        return $this;
     }
 
     /**
@@ -419,6 +463,7 @@ class GCMNotification
     public function setSound($sound)
     {
         $this->sound = $sound;
+        return $this;
     }
 
     /**
@@ -435,6 +480,7 @@ class GCMNotification
     public function setTag($tag)
     {
         $this->tag = $tag;
+        return $this;
     }
 
     /**
@@ -451,6 +497,7 @@ class GCMNotification
     public function setColor($color)
     {
         $this->color = $color;
+        return $this;
     }
 
     /**
@@ -467,6 +514,7 @@ class GCMNotification
     public function setClickAction($click_action)
     {
         $this->click_action = $click_action;
+        return $this;
     }
 
     /**
@@ -483,6 +531,7 @@ class GCMNotification
     public function setBodyLocKey($body_loc_key)
     {
         $this->body_loc_key = $body_loc_key;
+        return $this;
     }
 
     /**
@@ -499,6 +548,7 @@ class GCMNotification
     public function setBodyLocArgs($body_loc_args)
     {
         $this->body_loc_args = $body_loc_args;
+        return $this;
     }
 
     /**
@@ -515,6 +565,7 @@ class GCMNotification
     public function setTitleLocKey($title_loc_key)
     {
         $this->title_loc_key = $title_loc_key;
+        return $this;
     }
 
     /**
@@ -531,5 +582,6 @@ class GCMNotification
     public function setTitleLocArgs($title_loc_args)
     {
         $this->title_loc_args = $title_loc_args;
+        return $this;
     }
 }

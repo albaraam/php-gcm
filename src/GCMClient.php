@@ -26,19 +26,13 @@ class GCMClient {
 	 */
 	protected $apiKey = false;
 
-	/**
-	 * Recipients - List of GCM registration IDs (from 1 to 1000 recipients allowed)
-	 * @var array
-	 */
-	private $to = array();
-
 	
 	public function __construct($apiKey)
 	{
 		$this->apiKey = $apiKey;
 	}
 	
-	public function send($toRegId, GCMMessage $message)
+	public function send(GCMMessage $message)
 	{
 		if(!$message->isValid()){
 			return $message->getErrors();
@@ -48,16 +42,7 @@ class GCMClient {
 			throw new IlegalApiKeyException("Api Key is empty");
 		}
 
-		if(is_array($toRegId)) {
-			foreach ($toRegId as $to)
-			{
-				$this->addTo($to);
-			}
-		} elseif($toRegId) {
-			$this->setTo($toRegId);
-		}
-
-		if (count($this->getTo()) > 1000)
+		if (count($message->getTo()) > 1000)
 		{
 			throw new TooManyRecipientsException("Recipients maximum is 1000 GCM Registration IDs");
 		}
@@ -107,7 +92,7 @@ class GCMClient {
 	protected function generateJSONMessage(GCMMessage $message)
 	{
 		$data = array(
-			'registration_ids' => (array) $this->getTo(),
+			'registration_ids' => (array) $message->getTo(),
 			'notification' => (array) $message->getNotification(),
 			'data' => (array) $message->getData(),
 			'collapse_key' => $message->getCollapseKey(),
@@ -117,31 +102,5 @@ class GCMClient {
 			'dry_run' => $message->getDryRun(),
 		);
 		return json_encode($data);
-	}
-
-	public function getTo($onlyOne = false)
-	{
-		if($onlyOne)
-			return current($this->to); // firstone
-		return $this->to;
-	}
-
-
-	public function setTo($to)
-	{
-		$this->to = [];
-		$this->addTo($to);
-
-		return $this;
-	}
-
-
-	public function addTo($to)
-	{
-		if(!is_string($to))
-			throw new WrongGcmIdException("Recipient must be string GCM Registration ID");
-
-		$this->to[] = $to;
-		return $this;
 	}
 }
