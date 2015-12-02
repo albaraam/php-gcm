@@ -2,8 +2,6 @@
 
 A PHP library for sending messages to devices registered through Google Cloud Messaging.
 
-For license information check the [LICENSE](LICENSE.md)-file.
-
 
 
 Installation
