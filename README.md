@@ -24,3 +24,29 @@ or add
 ```
 
 to the `require` section of your composer.json.
+
+
+Usage
+------------
+
+```php
+
+use albaraam\gcm\GCMNotification;
+use albaraam\gcm\GCMMessage;
+use albaraam\gcm\GCMClient;
+
+$notification = new GCMNotification("Tilte","Body");
+$notification->setIcon("noti");
+$notification->setSound("water.mp3");
+.....
+
+$message = new GCMMessage($notification, ['foo'=>'bar', 'baz'=>[1,2,3]], "collapse-key-1");
+$message->timeToLive(3600); // TTL 1 hour
+.....
+
+$gcm = new GCMClient("ids", "YOUR_API_KEY"); // "ids" field can contain a array/single registration token or a topic key
+$response = $gcm->send($message);
+
+var_dump($response);
+
+```
