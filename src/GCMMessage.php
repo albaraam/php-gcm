@@ -257,7 +257,7 @@ class GCMMessage
 /**
 * GCM Payload Notification
 */
-class Notification
+class GCMNotification
 {
 	/*
      * @var string (required) Indicates notification title.
@@ -349,7 +349,10 @@ class Notification
 
 
 
-	function __construct() { }
+	function __construct($title = "", $body = "") {
+        $this->title = $title;
+        $this->body = $body;
+    }
 
 
 	/******************************************** Getters & Setters *************************************************/
