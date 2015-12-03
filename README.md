@@ -26,7 +26,7 @@ use albaraam\gcm\GCMNotification;
 use albaraam\gcm\GCMMessage;
 use albaraam\gcm\GCMClient;
 
-$notification = new GCMNotification("Tilte","Body");
+$notification = new GCMNotification("Title","Body");
 $notification
 	->setIcon("noti")
 	->setSound("water.mp3");
