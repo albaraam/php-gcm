@@ -2,7 +2,7 @@
     "name": "albaraam/php-gcm",
     "description": "A PHP library for sending messages to devices registered through Google Cloud Messaging",
     "keywords": ["php", "gcm", "php-gcm"],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "type": "library",
     "license": "MIT License",
     "support": {
