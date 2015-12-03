@@ -93,7 +93,7 @@ class GCMClient {
 	{
 		$data = array(
 			'registration_ids' => (array) $message->getTo(),
-			'notification' => (array) $message->getNotification(),
+			'notification' => $message->getNotification()->toArray(),
 			'data' => (array) $message->getData(),
 			'collapse_key' => $message->getCollapseKey(),
 			'delay_while_idle' => $message->getDelayWhileIdle(),

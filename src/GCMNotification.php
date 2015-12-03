@@ -296,5 +296,22 @@ class GCMNotification
         $this->title_loc_args = $title_loc_args;
         return $this;
     }
+
+    public function toArray()
+    {
+        return[
+            "title" => $this->title,
+            "body" => $this->body,
+            "icon" => $this->icon,
+            "sound" => $this->sound,
+            "tag" => $this->tag,
+            "color" => $this->color,
+            "click_action" => $this->click_action,
+            "body_loc_key" => $this->body_loc_key,
+            "body_loc_args" => $this->body_loc_args,
+            "title_loc_key" => $this->title_loc_key,
+            "title_loc_args" => $this->title_loc_args
+        ];
+    }
 }
 ?>
