@@ -34,13 +34,13 @@ use albaraam\gcm\GCMClient;
 
 $notification = new GCMNotification("Tilte","Body");
 $notification
-	->setIcon("noti");
+	->setIcon("noti")
 	->setSound("water.mp3");
 .....
 
 $message = new GCMMessage($notification, "ids"); // "ids" field can contain a array/single registration token or a topic key
 $message
-	->setData(['foo'=>'bar', 'baz'=>[1,2,3])
+	->setData(['foo'=>'bar', 'baz'=>[1,2,3]])
 	->setCollapseKey("collapse-key-1");
 .....
 
