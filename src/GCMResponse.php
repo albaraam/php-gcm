@@ -52,7 +52,7 @@ class GCMResponse
 	 */
 	private $results = [];
 
-	public function __construct(Message $message, $body)
+	public function __construct(GCMMessage $message, $body)
 	{
 		$data = $this->json_clean_decode($body);
 
