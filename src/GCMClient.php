@@ -92,7 +92,6 @@ class GCMClient {
 	protected function generateJSONMessage(GCMMessage $message)
 	{
 		$data = array(
-			'registration_ids' => (array) $message->getTo(),
 			'notification' => $message->getNotification()->toArray(),
 			'data' => (array) $message->getData(),
 			'collapse_key' => $message->getCollapseKey(),
@@ -101,6 +100,11 @@ class GCMClient {
 			'restricted_package_name' => $message->getRestrictedPackageName(),
 			'dry_run' => $message->getDryRun(),
 		);
+		if(is_array($message->getTo())){
+			$data['registration_ids'] = $message->getTo();
+		}else{
+			$data['to'] = $message->getTo();
+		}
 		return json_encode($data);
 	}
 }

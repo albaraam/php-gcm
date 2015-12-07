@@ -100,14 +100,7 @@ class GCMMessage
 
 	public function __construct($notification = null, $toRegId)
 	{
-        if(is_array($toRegId)) {
-            foreach ($toRegId as $to)
-            {
-                $this->addTo($to);
-            }
-        } elseif($toRegId) {
-            $this->setTo($toRegId);
-        }
+        $this->setTo($toRegId);
         if($notification != null){
             $this->setNotification($notification);
         }
@@ -165,8 +158,8 @@ class GCMMessage
 
     public function setTo($to)
     {
-        $this->to = [];
-        $this->addTo($to);
+        $this->to = $to;
+        //$this->addTo($to);
 
         return $this;
     }
@@ -177,6 +170,9 @@ class GCMMessage
         if(!is_string($to))
             throw new WrongGcmIdException("Recipient must be string GCM Registration ID");
 
+        if(!is_array($this->to)){
+        	$this->to = [$this->to];
+        }
         $this->to[] = $to;
         return $this;
     }
