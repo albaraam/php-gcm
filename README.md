@@ -8,10 +8,16 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-add
+Either run
 
 ```json
-"albaraam/php-gcm": "dev-master"
+composer require albaraam/php-gcm "1.0.0-beta"
+```
+
+or add
+
+```json
+"albaraam/php-gcm": "1.0.0-beta"
 ```
 
 to the `require` section of your composer.json.
