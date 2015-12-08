@@ -11,13 +11,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```json
-composer require albaraam/php-gcm "1.0.0-beta"
+composer require albaraam/php-gcm "~1.0.0"
 ```
 
 or add
 
 ```json
-"albaraam/php-gcm": "1.0.0-beta"
+"albaraam/php-gcm": "~1.0.0"
 ```
 
 to the `require` section of your composer.json.
