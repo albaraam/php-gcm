@@ -7,11 +7,11 @@
 
 namespace albaraam\gcm;
 
-use albaraam\gcm\AuthenticationException;
-use albaraam\gcm\HttpException;
-use albaraam\gcm\IlegalApiKeyException;
-use albaraam\gcm\TooBigPayloadException;
-use albaraam\gcm\TooManyRecipientsException;
+use albaraam\gcm\exceptions\AuthenticationException;
+use albaraam\gcm\exceptions\HttpException;
+use albaraam\gcm\exceptions\IlegalApiKeyException;
+use albaraam\gcm\exceptions\TooBigPayloadException;
+use albaraam\gcm\exceptions\TooManyRecipientsException;
 
 class GCMClient {
 
@@ -93,13 +93,17 @@ class GCMClient {
 	{
 		$data = array(
 			'notification' => $message->getNotification()->toArray(),
-			'data' => (array) $message->getData(),
 			'collapse_key' => $message->getCollapseKey(),
 			'delay_while_idle' => $message->getDelayWhileIdle(),
 			'time_to_live' => $message->getTimeToLive(),
 			'restricted_package_name' => $message->getRestrictedPackageName(),
 			'dry_run' => $message->getDryRun(),
 		);
+
+		if($message->getData() != null){
+			$data['data'] = $message->getData();
+		}
+
 		if(is_array($message->getTo())){
 			$data['registration_ids'] = $message->getTo();
 		}else{
