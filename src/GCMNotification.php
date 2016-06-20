@@ -329,7 +329,8 @@ class GCMNotification
             "body_loc_key" => $this->body_loc_key,
             "body_loc_args" => $this->body_loc_args,
             "title_loc_key" => $this->title_loc_key,
-            "title_loc_args" => $this->title_loc_args
+            "title_loc_args" => $this->title_loc_args,
+            "content_available" => $this->content_available,
         ];
     }
 }
