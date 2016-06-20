@@ -99,6 +99,8 @@ class GCMNotification
      *
      * */
     private $title_loc_args;
+    
+    private $content_available;
 
 
 
@@ -294,6 +296,23 @@ class GCMNotification
     public function setTitleLocArgs($title_loc_args)
     {
         $this->title_loc_args = $title_loc_args;
+        return $this;
+    }
+    
+    /**
+     * @return mixed
+     */
+    public function getContentAvailable()
+    {
+        return $this->content_available;
+    }
+
+    /**
+     * @param mixed $content_available
+     */
+    public function setContentAvailable($content_available)
+    {
+        $this->content_available = $content_available;
         return $this;
     }
 
