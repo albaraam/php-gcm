@@ -38,7 +38,7 @@ $notification
 	->setSound("water.mp3");
 .....
 
-$message = new GCMMessage($notification, "ids"); // "ids" field can contain a array/single registration token or a topic key
+$message = new GCMMessage($notification, "ids"); // "ids" parameter can contain a array/single registration token or a topic key
 $message
 	->setData(['foo'=>'bar', 'baz'=>[1,2,3]])
 	->setCollapseKey("collapse-key-1");
