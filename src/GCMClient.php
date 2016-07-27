@@ -12,6 +12,7 @@ use albaraam\gcm\exceptions\HttpException;
 use albaraam\gcm\exceptions\IlegalApiKeyException;
 use albaraam\gcm\exceptions\TooBigPayloadException;
 use albaraam\gcm\exceptions\TooManyRecipientsException;
+use albaraam\gcm\exceptions\NoRecipientsException;
 
 class GCMClient {
 
@@ -40,6 +41,11 @@ class GCMClient {
 
 		if (!$this->apiKey) {
 			throw new IlegalApiKeyException("Api Key is empty");
+		}
+
+		if (count($message->getTo()) <= 0)
+		{
+			throw new NoRecipientsException("Add at least 1 recipient (GCM Registration ID)");
 		}
 
 		if (count($message->getTo()) > 1000)
